@@ -1,5 +1,8 @@
-# Week 2
+# Week 5 (October 11th 2018)
 
 ## Reset Your Project
+`git checkout -f week4`
 
-## Search for People
+## The Plan
+### Replace People with Pokemon
+### 

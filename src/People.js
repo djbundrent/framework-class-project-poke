@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Person from "./Person";
+import PersonAdd from "./PersonAdd";
 
 class People extends Component {
   constructor() {
@@ -35,20 +36,30 @@ class People extends Component {
     });
   };
 
+  addPerson = (person) => {
+    this.setState(state => {
+      const people = [...state.people, person]
+      return {people}
+    })
+  }
+
   render() {
     const { people } = this.state;
 
     return (
-      <ul className="people">
-        {people.map(p => (
-          <Person
-            key={p.id}
-            id={p.id}
-            name={p.name}
-            updatePersonName={this.updatePersonName}
-          />
-        ))}
-      </ul>
+      <form>
+        <PersonAdd addPerson={this.addPerson}/>
+        <ul className="people">
+          {people.map(p => (
+            <Person
+              key={p.id}
+              id={p.id}
+              name={p.name}
+              updatePersonName={this.updatePersonName}
+            />
+          ))}
+        </ul>
+      </form>
     );
   }
 }

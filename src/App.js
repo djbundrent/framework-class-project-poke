@@ -31,9 +31,13 @@ generateSearchResults = search => {
 }
 
 selectPokemon = async name => {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`)
+  const res = 
+    await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${name}/`,
+        {cache: "force-cache" })
+        
   const json = await res.json()
-  this.setState({selectedPokemon: json})
+  this.setState({selectedPokemon: json, search: name})
 
 }
 
@@ -43,7 +47,7 @@ selectPokemon = async name => {
     return (
       <div className="App">
         <div className="search">
-          <input onChange={this.onSearchChange} type="text" />
+          <input onChange={this.onSearchChange} type="text" value={this.state.search}/>
           <ul>
             {results.map(r => 
               <li onClick={() => this.selectPokemon(r.name)}> 
@@ -52,6 +56,13 @@ selectPokemon = async name => {
             )}
           </ul>
         </div>
+
+        {this.state.selectedPokemon && 
+          <div className="result">
+              <img src={this.state.selectedPokemon.sprites.back_default} />
+        </div>
+        }
+        
       </div>
     );
   }
